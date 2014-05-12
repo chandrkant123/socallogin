@@ -1,2 +1,18 @@
-<h1>Xyz#index</h1>
-<p>Find me in app/views/xyz/index.html.erb</p>
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>jQuery Example</title>
+    <script>
+      $(document).ready(function() {
+       $.ajaxSetup({ cache: true });
+      $.getScript('//connect.facebook.net/en_UK/all.js', function(){
+      FB.init({
+      appId: '295293807301514',
+    });     
+    $('#loginbutton,#feedbutton').removeAttr('disabled');
+          FB.getLoginStatus(updateStatusCallback);
+      });
+      });
+    </script>
+  </head>

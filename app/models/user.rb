@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
  devise :omniauthable
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me,:provider,:uid,:name
+  attr_accessible :email, :password, :password_confirmation, :remember_me,:provider,:uid,:name,:url
   # attr_accessible :title, :body
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
@@ -15,15 +15,26 @@ class User < ActiveRecord::Base
     else
       registered_user = User.where(:email => auth.info.email).first
       if registered_user
+        registered_user.update_attributes(
+                            :name=>auth.info.first_name,
+                            :provider=>auth.provider,
+                            :uid=>auth.uid,
+                            :email=>auth.info.email,
+                            :url =>auth.info.image,
+                            :password=>Devise.friendly_token[0,20],
+
+          )
         return registered_user
       else
       	puts "============================================"
       	puts "=================#{auth.inspect}============"
+        puts "=================#{auth.info.inspect}============"
       	puts "============================================"
         user = User.create(name:auth.extra.raw_info.name,
                             provider:auth.provider,
                             uid:auth.uid,
                             email:auth.info.email,
+                            url: auth.info.image,
                             password:Devise.friendly_token[0,20],
                           )
       end    end
@@ -56,17 +67,27 @@ def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
     else
       registered_user = User.where(:email => auth.info.email).first
       if registered_user
+        registered_user.update_attributes(
+                            :name=>auth.info.first_name,
+                            :provider=>auth.provider,
+                            :uid=>auth.uid,
+                            :email=>auth.info.email,
+                            :url =>auth.info.image,
+                            :password=>Devise.friendly_token[0,20],
+
+          )
         return registered_user
       else
-
+        
         user = User.create(name:auth.info.first_name,
                             provider:auth.provider,
                             uid:auth.uid,
                             email:auth.info.email,
+                            url: auth.info.image,
                             password:Devise.friendly_token[0,20],
                           )
 
-        puts "========================= User Create ==========================="
+        
       end
 
     end

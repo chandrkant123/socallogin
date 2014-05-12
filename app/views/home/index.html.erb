@@ -62,10 +62,14 @@
 		<%end%>
 		<div class="fb">
         <% if user_signed_in? %>
+        <img src="<%=current_user.url%>"/>
+        <br/>
 			Signed in as <%= current_user.name %>. Not you?
+
 			<br/><br/>
 
 			<div id="sign_out"><%= link_to "Sign out", destroy_user_session_path,:method => :delete %></div>
+
 		<% else %>
 <!--<div><%= link_to "Sign up", new_user_registration_path %></div>-->
 <!--<div><%= link_to "Sign in", new_user_session_path %> ||<br/></div>-->
