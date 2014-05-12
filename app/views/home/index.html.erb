@@ -1,11 +1,77 @@
-<% if user_signed_in? %>
-Signed in as <%= current_user.name %>. Not you?
-<%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Login PHP</title>
+	<link rel="stylesheet" href="style.css" />
+	<link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="jquery-1.7.min.js"></script>
+	<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$("#login").click(function(){
+			
+			var action = $("#lg-form").attr('action');
+			var form_data = {
+				username: $("#username").val(),
+				password: $("#password").val(),
+				is_ajax: 1
+			};
+			
+			$.ajax({
+				type: "POST",
+				url: action,
+				data: form_data,
+				success: function(response)
+				{
+					if(response == "success")
+						$("#lg-form").slideUp('slow', function(){
+							$("#message").html('<p class="success">You have logged in successfully!</p><p>Redirecting....</p>');
+						});
+					else
+						$("#message").html('<p class="error">ERROR: Invalid username and/or password.</p>');
+				}	
+			});
+			return false;
+		});
+	});
+	</script>
+</head>
+<body>
+	<div class="lg-container">
+		<h1>Admin Area</h1>
+		<form action="waka-login.php" id="lg-form" name="lg-form" method="post">
+			
+			<div>
+				<label for="username">Username:</label>
+				<input type="text" name="username" id="username" placeholder="username"/>
+			</div>
+			
+			<div>
+				<label for="password">Password:</label>
+				<input type="password" name="password" id="password" placeholder="password" />
+			</div>
+			
+			<div>				
+				<button type="submit" id="login">Login</button>
+			</div>
+			
+		</form>
+		<div id="message"></div>
+		
+        <% if user_signed_in? %>
+	Signed in as <%= current_user.name %>. Not you?
+<div><%= link_to "Sign out", destroy_user_session_path,:method => :delete %></div>
 <% else %>
-<%= link_to "Sign up", new_user_registration_path %> or
-<%= link_to "Sign in", new_user_session_path %> ||<br/>
-<a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src="/assets/fb-login.png" width="194px" height="27px"/></a><br/>
-<a href="<%=user_omniauth_authorize_path(:twitter)%>"><img src="/assets/twitter.png" width="194px" height="27px"/></a><br/>
-<a href="<%=user_omniauth_authorize_path(:linkedin)%>"><img src="/assets/linkend.png" width="194px" height="27px"/></a><br/>
+<div><%= link_to "Sign up", new_user_registration_path %></div>
+<div><%= link_to "Sign in", new_user_session_path %> ||<br/></div>
+<div><a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src="/assets/fb-login.png" width="194px" height="27px"/></a><br/></div>
+<div><a href="<%=user_omniauth_authorize_path(:twitter)%>"><img src="/assets/twitter.png" width="194px" height="27px"/></a><br/></div>
+<div><a href="<%=user_omniauth_authorize_path(:linkedin)%>"><img src="/assets/linkend.png" width="194px" height="27px"/></a><br/></div>
 
 <% end %>
+		
+		
+	</div>
+</body>
+</html>
