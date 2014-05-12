@@ -1,0 +1,11 @@
+<% if user_signed_in? %>
+Signed in as <%= current_user.name %>. Not you?
+<%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
+<% else %>
+<%= link_to "Sign up", new_user_registration_path %> or
+<%= link_to "Sign in", new_user_session_path %> ||<br/>
+<a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src="/assets/fb-login.png" width="194px" height="27px"/></a><br/>
+<a href="<%=user_omniauth_authorize_path(:twitter)%>"><img src="/assets/twitter.png" width="194px" height="27px"/></a><br/>
+<a href="<%=user_omniauth_authorize_path(:linkedin)%>"><img src="/assets/linkend.png" width="194px" height="27px"/></a><br/>
+
+<% end %>
