@@ -52,6 +52,7 @@ def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
     user = User.where(:provider => auth.provider, :uid => auth.uid).first
     if user
       return user
+      puts "======================#{user?}======================"
     else
       registered_user = User.where(:email => auth.info.email).first
       if registered_user
@@ -64,6 +65,8 @@ def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
                             email:auth.info.email,
                             password:Devise.friendly_token[0,20],
                           )
+
+        puts "========================= User Create ==========================="
       end
 
     end
