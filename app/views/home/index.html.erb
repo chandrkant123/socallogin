@@ -40,6 +40,7 @@
 <body>
 	<div class="lg-container">
 		<h1>Admin Area</h1>
+		<% if !user_signed_in? %>
 		<form action="waka-login.php" id="lg-form" name="lg-form" method="post">
 			
 			<div>
@@ -58,20 +59,45 @@
 			
 		</form>
 		<div id="message"></div>
-		
+		<%end%>
+		<div class="fb">
         <% if user_signed_in? %>
-	Signed in as <%= current_user.name %>. Not you?
-<div><%= link_to "Sign out", destroy_user_session_path,:method => :delete %></div>
-<% else %>
-<div><%= link_to "Sign up", new_user_registration_path %></div>
-<div><%= link_to "Sign in", new_user_session_path %> ||<br/></div>
-<div><a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src="/assets/fb-login.png" width="194px" height="27px"/></a><br/></div>
-<div><a href="<%=user_omniauth_authorize_path(:twitter)%>"><img src="/assets/twitter.png" width="194px" height="27px"/></a><br/></div>
-<div><a href="<%=user_omniauth_authorize_path(:linkedin)%>"><img src="/assets/linkend.png" width="194px" height="27px"/></a><br/></div>
+			Signed in as <%= current_user.name %>. Not you?
+			<br/><br/>
 
-<% end %>
+			<%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
+		<% else %>
+<!--<div><%= link_to "Sign up", new_user_registration_path %></div>-->
+<!--<div><%= link_to "Sign in", new_user_session_path %> ||<br/></div>-->
+		<div><a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src="/assets/fb-login.png" width="194px" height="27px"/></a><br/></div>
+		<div><a href="<%=user_omniauth_authorize_path(:twitter)%>"><img src="/assets/twitter.png" width="194px" height="27px"/></a><br/></div>
+		<div><a href="<%=user_omniauth_authorize_path(:linkedin)%>"><img src="/assets/linkend.png" width="194px" height="27px"/></a><br/></div>
+
+		<% end %>
 		
-		
+		</div>
 	</div>
 </body>
 </html>
+<style>
+.fb{
+	margin-left: 47px;
+}
+
+a{
+	font-family: 'Oleo Script', cursive;
+	font-size: 18px;
+	border:1px solid #000;
+	margin-left: 57px;
+	padding:5px 10px;
+	border:1px solid rgba(51,51,51,.5);
+	-webkit-border-radius:10px;
+	-moz-border-radius:10px;
+	border-radius:10px;
+	
+	-webkit-box-shadow: 2px 1px 1px #aaa;
+	-moz-box-shadow: 2px 1px 1px #aaa;
+	box-shadow: 2px 1px 1px #aaa;
+	cursor:pointer;
+}
+</style>
