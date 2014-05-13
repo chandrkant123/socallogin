@@ -47,6 +47,9 @@ Devise.setup do |config|
   config.omniauth :twitter, "1Rz7NYmMyNZd1az8Nmv9xXdUf", "EpjYERtNcFVl9MlOrI7Q33RiAdUBkQEovOls5apErL1KLFR0KF"
   require 'omniauth-linkedin'
   config.omniauth :linkedin, "75upybk77zhicc", "6Uz6ZrKsIp7kLQDv"
+
+require 'omniauth-google-oauth2'
+config.omniauth :google_oauth2, "182915622043.apps.googleusercontent.com", "FATCio-qJH4h1FGiwjCqTk40", { access_type: "offline", approval_prompt: ""  }
   config.case_insensitive_keys = [ :email ]
 
   # Configure which authentication keys should have whitespace stripped.

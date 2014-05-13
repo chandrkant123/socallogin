@@ -56,8 +56,13 @@
 			Signed in as <%= current_user.name %>. Not you?
 
 			<br/><br/>
-
-			<div id="sign_out"><%= link_to "Sign out", destroy_user_session_path,:method => :delete %></div>
+            <%if current_user.provider=='facebook'%>
+			<div><%=link_to image_tag("/assets/fb-logout.png",:width=>194,:height=>27), destroy_user_session_path,:method => :delete %></div>
+			<%elsif current_user.provider=='twitter' %>
+			<div><%=link_to image_tag("/assets/twitterLogoutOutButton.png",:width=>194,:height=>27), destroy_user_session_path,:method => :delete %></div>
+			<%else%>
+			<div><%=link_to image_tag("/assets/fb-logout.png",:width=>194,:height=>27), destroy_user_session_path,:method => :delete %></div>
+			<%end%>
 
 		<% else %>
 <!--<div><%= link_to "Sign up", new_user_registration_path %></div>-->
@@ -65,7 +70,7 @@
 		<div><a href="<%=user_omniauth_authorize_path(:facebook)%>"><img src="/assets/fb-login.png" width="194px" height="27px"/></a><br/></div>
 		<div><a href="<%=user_omniauth_authorize_path(:twitter)%>"><img src="/assets/twitter.png" width="194px" height="27px"/></a><br/></div>
 		<div><a href="<%=user_omniauth_authorize_path(:linkedin)%>"><img src="/assets/linkend.png" width="194px" height="27px"/></a><br/></div>
-
+         <div>  <a  href= "<%=user_omniauth_authorize_path(:google_oauth2) %>"><img src="/assets/google-plush.png" width="194px" height="27px"/></a></div>
 		<% end %>
 		
 		</div>

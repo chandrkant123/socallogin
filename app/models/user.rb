@@ -116,5 +116,42 @@ def self.find_for_twitter_oauth(auth, signed_in_resource=nil)
       end
 
     end
-  end   
+  end
+
+def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
+    data = access_token.info
+    user = User.where(:provider => access_token.provider, :uid => access_token.uid ).first
+    if user
+      user.update_attributes(
+                            :name=>data["name"],
+                            :provider=>access_token.provider,
+                            :uid=>access_token.uid,
+                            :email=>data["email"],
+                            #:description=>auth.info.description,
+                            #:params=>auth,
+                            :url =>data["image"],
+                            :password=>Devise.friendly_token[0,20],
+
+          )
+      return user
+    else
+      registered_user = User.where(:email => access_token.info.email).first
+      if registered_user
+        return registered_user
+      else
+        puts "======================================================="
+        puts "==========================#{data.inspect}============================="
+        puts "=============================#{access_token.inspect}=========================="
+        user = User.create(name: data["name"],
+          provider:access_token.provider,
+          email: data["email"],
+          uid: access_token.uid ,
+          url: data["image"],
+          #params:auth,
+          password: Devise.friendly_token[0,20],
+        )
+      end
+   end
+end
+
 end
