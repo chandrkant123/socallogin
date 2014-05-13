@@ -1,42 +1,5 @@
-<!DOCTYPE HTML>
-<html lang="en-US">
-<head>
-	<meta charset="UTF-8">
-	<title>Login PHP</title>
-	<link rel="stylesheet" href="style.css" />
-	<link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="jquery-1.7.min.js"></script>
-	<script type="text/javascript">
+
 	
-	$(document).ready(function(){
-		$("#login").click(function(){
-			
-			var action = $("#lg-form").attr('action');
-			var form_data = {
-				username: $("#username").val(),
-				password: $("#password").val(),
-				is_ajax: 1
-			};
-			
-			$.ajax({
-				type: "POST",
-				url: action,
-				data: form_data,
-				success: function(response)
-				{
-					if(response == "success")
-						$("#lg-form").slideUp('slow', function(){
-							$("#message").html('<p class="success">You have logged in successfully!</p><p>Redirecting....</p>');
-						});
-					else
-						$("#message").html('<p class="error">ERROR: Invalid username and/or password.</p>');
-				}	
-			});
-			return false;
-		});
-	});
-	</script>
-</head>
 <body>
 	<div class="lg-container">
 		<h1>Admin Area</h1>
@@ -63,6 +26,32 @@
 		<div class="fb">
         <% if user_signed_in? %>
         <img src="<%=current_user.url%>"/>
+        <form action="/home/update" method="post" >
+        	<input type="hidden" name="user[id]" value="<%=current_user.id%>">
+             <div>
+				<label for="username">Username:</label>
+				<input type="text" name="user[name]" id="username" placeholder="username" value="<%=current_user.name%>"/>
+			</div>
+			<div>
+				<label for="email">Email-id:</label><br/>
+				<input type="text" name="user[email]" id="email" placeholder="Email" value="<%=current_user.email%>"/>
+			</div>
+			<div>
+				<label for="username">Provider:</label>
+				<input type="text" name="user[provider]" id="email" placeholder="Provider" value="<%=current_user.provider%>"/>
+			</div>
+			<div>
+				<label for="username">Description:</label>
+
+				<textarea rows="4" cols="20" name="user[description]">
+                 <%=current_user.description%>
+				</textarea>
+				
+			</div>
+			<div>				
+				<input type="submit" value="Update"/>
+			</div>
+            </form>
         <br/>
 			Signed in as <%= current_user.name %>. Not you?
 
@@ -81,8 +70,7 @@
 		
 		</div>
 	</div>
-</body>
-</html>
+
 <style>
 .fb{
 	margin-left: 47px;

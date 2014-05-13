@@ -5,6 +5,8 @@ FacebookDevise::Application.routes.draw do
 
   get "xyz/show"
   get  "home/show"
+  post  "home/update"
+  #get  "home/udate"
   root :to=> "home#index"
 
   devise_for :users, :controllers => { :omniauth_callbacks => "omniauth_callbacks" }

@@ -44,7 +44,7 @@ Devise.setup do |config|
   # to authenticate or find a user. Default is :email.
   
   require 'omniauth-twitter'
-  config.omniauth :twitter, "uEXbc2iRpRF9aDnnKIYJOkBWS", "m54JIgrsBWAOp1ce6xF9oisA3Q9PaabR9cBwKPCMV8Fn0k4CSN"
+  config.omniauth :twitter, "1Rz7NYmMyNZd1az8Nmv9xXdUf", "EpjYERtNcFVl9MlOrI7Q33RiAdUBkQEovOls5apErL1KLFR0KF"
   require 'omniauth-linkedin'
   config.omniauth :linkedin, "75upybk77zhicc", "6Uz6ZrKsIp7kLQDv"
   config.case_insensitive_keys = [ :email ]
