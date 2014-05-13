@@ -20,4 +20,11 @@ development:
   username: postgres
   password: postgres
 
- 
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: ddbkcapnn68bi9
+  username: zycwtjqphkqerw
+  password: oPZTJgpQHkoQarmC8Fo8mhqwOb
+  host: ec2-54-243-48-227.compute-1.amazonaws.com # something like ec2-xxx-xx-xxx-xxxx.compute-1.amazonaws.com
+  sslmode: require
